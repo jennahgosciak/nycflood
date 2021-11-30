@@ -1,0 +1,89 @@
+Technical methodology for Assignment 3:
+
+1 Downloaded data sources:
+  a 311 reports of heavy flooding, downloaded from New York City Open Data.
+  https://data.cityofnewyork.us/Social-Services/Street-flooding-map/euy6-dafe
+    i     Data is only 2010-present.
+    ii    I excluded 311 calls with a year of 2021 for completeness.
+    iii   In the first map, I represented the data with the "heat map" symbology.
+  b NOAA data on precipitation
+  https://www.ncei.noaa.gov/access/services/data
+    i     Downloaded precipitation summary data for the Central Park weather station (USW00094728) for all days
+          between 01/01/2010 to 12/31/2020
+  c FEMA Floodplain maps, downloaded from New York City Open Data.
+  https://data.cityofnewyork.us/Environment/Sea-Level-Rise-Maps-2020s-100-year-Floodplain-/ezfn-5dsb
+  https://data.cityofnewyork.us/Environment/Sea-Level-Rise-Maps-2020s-500-year-Floodplain-/ajyu-7sgg
+    i     These are estimates for the 2020s, provided by the Mayor's Office of Climate and Sustainability
+    ii    I clipped these polygons to the 5 boroughs (they appeared to extend into the river).
+    iii   I noticed that these polygons overlap. For any area-based calculations I used versions with dissolved polygons.
+    iv    I changed the colors. The 500-year floodplain is a deeper blue; the 100-year floodplain is a lighter blue.
+          I experimented with transparency, but instead I decided to later the 100-year floodplain on first and
+          then the 500-year floodplain given that the 100-year floodplain is a more immediate risk.
+  d Moderate flooding associated with rainfall
+    https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Moderate-Flood/5rzh-cyqd
+    i     No transformations needed. I changed the symbology and added descriptive category names.
+    ii    I created a version of the data that excluded the high tides in 2050. I also exported the
+          file as a geojson file since it original was in a geodatabase.
+    iii   I fixed geometries using the "Fix geometries" tool in QGIS.
+    iv    I created a version of the data that excluded the high tides in 2050 and had a 15 foot buffer.
+    v     I used the dissolve tool in QGIS so that there were no overlapping polygons.
+  e Extreme flooding associated with rainfall
+    https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Extreme-Flood/w8eg-8ha6
+    i     No transformations needed. I changed the symbology and added descriptive category names.
+    ii    I created a version of the data that excluded the high tides in 2080.
+  f Ecology of Manhattan in 1609
+    i     Downloaded from the Welikia project
+          https://welikia.org/download/scientific-data/
+    ii    The primary datafile of interest was the ecocomm raster file. This was saved in the format of
+          an ESRI grid file. I opened it in ArcMap in order to download the attribute table.
+    iii   I created coarsened categories of each of the ecological communities (there are 55 in total,
+          I only saw 40 in the data). The categories I created were meant to describe the level of water
+          in the original community. For example, was it marshland or a swamp (e.g. a wetland) or was it
+          underwater?
+    iv    With these coarsened categories, I created a new raster file and mapped the old codes to the new
+          codes. See: https://docs.google.com/spreadsheets/d/17u_WjWDV2KCcGdX5MQt_RIMrHQfEeQ00MhGHXAw6WHk/edit#gid=0
+          and 00_convert_esri_grid.py
+    v     I changed the symbology of these codes using a color scheme that seemed contextual (blue to represented
+          water and orange to represent dry land) and I added descriptive categories.
+    vi    With these coarsened categories, I converted the raster file to a polygon.
+    vii   I produced an extract of the polygon file that is only wetland or water (numeric codes 600 and 608).
+    viii  I produced a version of the data that id clipped to polygon data for the 5 boroughs.
+  g 5 boroughs polygon data
+  https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm
+    i     No transformations needed.
+  h Community districts polygon data
+  https://data.cityofnewyork.us/City-Government/Community-Districts/yfnk-k7r4
+    i     Produced an extract of the data that only included community districts 3 and 11
+    ii    Produced an extract of the data that was only for Manhattan (all community districts starting with 1)
+
+2   Community-level analysis
+  a   For the community-level analysis, I chose two community districts (community districts 3 and 11) that
+      appeared to have a high level of coverage by wetlands or bodies of water. I also chose community districts
+      3 given that it's where my family lives and I'm interested in the relationship between the history of the
+      neighborhood as marshland and the current risk of flooding.
+  b   Using the extract for community districts 3 and 11, I zoomed into each neighborhood and produced maps
+      of the 4 different flooding measurements using the layouts manager in QGIS.
+  c   I used the QGIS "Overlap analysis" tool to calculate the percentage of area covered by other layers. I did this
+      in calculations of the percent of the community district's area covered by wetland or water in 1609 and in
+      calculations of the percent of the community district's area covered by the 100- or the 500-year floodplain.
+      For the second calculation, I used the version of the data that did not have overlaps (i.e. boundaries had
+      been dissolved).
+  d   I added a transparent layer, callouts, and rectangular frames in postprocessing.
+
+3   Statistical analysis
+  a   I used a logistic regression (see 02_analysis.py) to estimate how well the 1609 ecology predicates flooding risk.
+      I did this for both the FEMA 100-year floodplain and for the moderate risk of flooding due to rainfall.
+  b   I first generated a random sample of 100,000 points that are in Manhattan (using Manhattan's modern-day boundaries)
+      in QGIS.
+  c   I then merged performed several spatial joins to existing polygon data (for ease of processing, I did this in Python).
+    i     I merged to the FEMA 100-year floodplain using a spatial join with "intersects"
+    ii    I merged to the moderate risk of flooding polygon file (with a 15 ft buffer) using a spatial join with "intersects"
+    iii   I merged to the ecological communities file that had been filtered to wetlands and bodies of water using a spatial
+          join With "intersects"
+  d   With this merged file, I then split the data into two dataframes: one with 70,000 observations and the other with
+      30,000.
+  e   I performed a logistic regression on the data with 70,000 observations and then using this model I estimated the
+      predicted values with the data that had only 30,000. I compared the accuracy of these predicted values using a
+      50% threshold (i.e. if the predicted probability was > 50%, I coded that as a prediction of flooding).
+  f   I compared the prediction of flooding to actual flooding at the community district level to observe variation and to
+      see if these findings corroborated the community-level analysis.
