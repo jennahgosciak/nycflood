@@ -48,9 +48,9 @@
     1. I used a logistic regression (see 02_analysis.py) to estimate how well the 1609 ecology predicates flooding risk. I did this for both the FEMA 100-year floodplain and for the moderate risk of flooding due to rainfall.
     2. I first generated a random sample of 100,000 points that are in Manhattan (using Manhattan's modern-day boundaries) in QGIS.
     3. I then merged performed several spatial joins to existing polygon data (for ease of processing, I did this in Python).
-        1. I merged to the FEMA 100-year floodplain using a spatial join with "intersects."
-        2. I merged to the moderate risk of flooding polygon file (with a 15 ft buffer) using a spatial join with "intersects."
-        3. I merged to the ecological communities file that had been filtered to wetlands and bodies of water using a spatial join with "intersects."
+        1. I merged to the FEMA 100-year floodplain using a spatial join with intersects.
+        2. I merged to the moderate risk of flooding polygon file (with a 15 ft buffer) using a spatial join with intersects.
+        3. I merged to the ecological communities file that had been filtered to wetlands and bodies of water using a spatial join with intersects.
     4. With this merged file, I then split the data into two dataframes: one with 70,000 observations and the other with 30,000.
     5. I performed a logistic regression on the data with 70,000 observations and then using this model I estimated the predicted values with the data that had only 30,000. I compared the accuracy of these predicted values using a 50% threshold (i.e. if the predicted probability was > 50%, I coded that as a prediction of flooding).
     6. I compared the prediction of flooding to actual flooding at the community district level to observe variation and to see if these findings corroborated the community-level analysis.
