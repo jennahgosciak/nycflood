@@ -15,10 +15,10 @@
         4. I changed the colors. The 500-year floodplain is a deeper blue; the 100-year floodplain is a lighter blue. I experimented with transparency, but instead I decided to later the 100-year floodplain on first and then the 500-year floodplain given that the 100-year floodplain is a more immediate risk.
   	4. [Moderate flooding associated with rainfall](https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Moderate-Flood/5rzh-cyqd).
         1. No transformations needed. I changed the symbology and added descriptive category names.
-    		2. I created a version of the data that excluded the high tides in 2050. I also exported the file as a geojson file since it original was in a geodatabase.
-    		3. I fixed geometries using the "Fix geometries" tool in QGIS.
-    		4. I created a version of the data that excluded the high tides in 2050 and had a 15 foot buffer.
-    		5. I used the dissolve tool in QGIS so that there were no overlapping polygons.
+        2. I created a version of the data that excluded the high tides in 2050. I also exported the file as a geojson file since it original was in a geodatabase.
+        3. I fixed geometries using the "Fix geometries" tool in QGIS.
+        4. I created a version of the data that excluded the high tides in 2050 and had a 15 foot buffer.
+        5. I used the dissolve tool in QGIS so that there were no overlapping polygons.
 
   	5. [Extreme flooding associated with rainfall](https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Extreme-Flood/w8eg-8ha6)
 
