@@ -33,12 +33,10 @@
   	    7. I produced an extract of the polygon file that is only wetland or water (numeric codes 600 and 608).
   	    8. I produced a version of the data clipped to polygon data for the 5 boroughs.
   	7. [5 boroughs polygon data](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm)
-
   		  1. No transformations needed.
   	8. [Community districts polygon data](https://data.cityofnewyork.us/City-Government/Community-Districts/yfnk-k7r4)
-
-    		1. Produced an extract of the data that only included community districts 3 and 11.
-    		2. Produced an extract of the data that was only for Manhattan (all community districts starting with 1).
+        1. Produced an extract of the data that only included community districts 3 and 11.
+        2. Produced an extract of the data that was only for Manhattan (all community districts starting with 1).
 
   2.   Community-level analysis
   		 1. For the community-level analysis, I chose two community districts (community districts 3 and 11) that  appeared to have a high level of coverage by wetlands or   bodies of water. I also chose community district 3 given that it's where my family lives and I'm interested in the relationship between the history of the neighborhood as marshland and the current risk of flooding.
@@ -50,10 +48,9 @@
 		1. I used a logistic regression (see 02_analysis.py) to estimate how well the 1609 ecology predicates flooding risk. I did this for both the FEMA 100-year floodplain and for the moderate risk of flooding due to rainfall.
 		2. I first generated a random sample of 100,000 points that are in Manhattan (using Manhattan's modern-day boundaries) in QGIS.
 		3. I then merged performed several spatial joins to existing polygon data (for ease of processing, I did this in Python).
-
-  				1. I merged to the FEMA 100-year floodplain using a spatial join with "intersects."
-  				2. I merged to the moderate risk of flooding polygon file (with a 15 ft buffer) using a spatial join with "intersects."
-  				3. I merged to the ecological communities file that had been filtered to wetlands and bodies of water using a spatial join With "intersects"
+        1. I merged to the FEMA 100-year floodplain using a spatial join with "intersects."
+        2. I merged to the moderate risk of flooding polygon file (with a 15 ft buffer) using a spatial join with "intersects."
+        3. I merged to the ecological communities file that had been filtered to wetlands and bodies of water using a spatial join With "intersects"
 		4. With this merged file, I then split the data into two dataframes: one with 70,000 observations and the other with 30,000.
 		5. I performed a logistic regression on the data with 70,000 observations and then using this model I estimated the predicted values with the data that had only 30,000. I compared the accuracy of these predicted values using a 50% threshold (i.e. if the predicted probability was > 50%, I coded that as a prediction of flooding).
 		6. I compared the prediction of flooding to actual flooding at the community district level to observe variation and to see if these findings corroborated the community-level analysis.
