@@ -21,11 +21,9 @@
         5. I used the dissolve tool in QGIS so that there were no overlapping polygons.
 
   	5. [Extreme flooding associated with rainfall](https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Extreme-Flood/w8eg-8ha6)
-
-    		1. No transformations needed. I changed the symbology and added descriptive category names.
-    		2. I created a version of the data that excluded the high tides in 2080.
+        1. No transformations needed. I changed the symbology and added descriptive category names.
+        2. I created a version of the data that excluded the high tides in 2080.
   	6. Ecology of Manhattan in 1609
-
   	    1. Downloaded from the [Welikia project](https://welikia.org/download/scientific-data/)
   	    2. The primary datafile of interest was the ecocomm raster file. This was saved in the format of an ESRI grid file. I opened it in ArcMap in order to download the attribute table.
   	    3. I created coarsened categories of each of the ecological communities (there are 55 in total, I only saw 40 in the data). The categories I created were meant to describe the level of water in the original community. For example, was it marshland or a swamp (e.g. a wetland) or was it underwater?
