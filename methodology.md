@@ -7,21 +7,18 @@
   		  3. In the first map, I represented the data with the "heat map" symbology.
 
   	2. [NOAA data on precipitation](https://www.ncei.noaa.gov/access/services/data)
-
   	    1. Downloaded precipitation summary data for the Central Park weather station (USW00094728) for all days between 01/01/2010 to 12/31/2020
-  	3. [FEMA Floodplain maps](https://data.cityofnewyork.us/Environment/Sea-Level-Rise-Maps-2020s-100-year-Floodplain-/ezfn-5dsb), downloaded from New York City Open Data.
-
-    		1. These are estimates for the 2020s, provided by the Mayor's Office of Climate and Sustainability
-    		2.  I clipped these polygons to the 5 boroughs (they appeared to extend into the river).
-    		3.  I noticed that these polygons overlap. For any area-based calculations I used versions with dissolved polygons.
-    		4. I changed the colors. The 500-year floodplain is a deeper blue; the 100-year floodplain is a lighter blue. I experimented with transparency, but instead I decided to later the 100-year floodplain on first and then the 500-year floodplain given that the 100-year floodplain is a more immediate risk.
+  	3. [FEMA Floodplain maps](https://data.cityofnewyork.us/Environment/Sea-Level-Rise-Maps-2020s-100-year-Floodplain-/ezfn-5dsb), downloaded from New York City Open Data
+        1. These are estimates for the 2020s, provided by the Mayor's Office of Climate and Sustainability.
+        2. I clipped these polygons to the 5 boroughs (they appeared to extend into the river).
+        3. I noticed that these polygons overlap. For any area-based calculations I used versions with dissolved polygons.
+        4. I changed the colors. The 500-year floodplain is a deeper blue; the 100-year floodplain is a lighter blue. I experimented with transparency, but instead I decided to later the 100-year floodplain on first and then the 500-year floodplain given that the 100-year floodplain is a more immediate risk.
   	4. [Moderate flooding associated with rainfall](https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Moderate-Flood/5rzh-cyqd)
-
     		1. No transformations needed. I changed the symbology and added descriptive category names.
     		2. I created a version of the data that excluded the high tides in 2050. I also exported the file as a geojson file since it original was in a geodatabase.
     		3. I fixed geometries using the "Fix geometries" tool in QGIS.
-    		4.  I created a version of the data that excluded the high tides in 2050 and had a 15 foot buffer.
-    		5.  I used the dissolve tool in QGIS so that there were no overlapping polygons.
+    		4. I created a version of the data that excluded the high tides in 2050 and had a 15 foot buffer.
+    		5. I used the dissolve tool in QGIS so that there were no overlapping polygons.
 
   	5. [Extreme flooding associated with rainfall](https://data.cityofnewyork.us/City-Government/NYC-Stormwater-Flood-Map-Extreme-Flood/w8eg-8ha6)
 
@@ -41,7 +38,7 @@
 
   		  1. No transformations needed.
   	8. [Community districts polygon data](https://data.cityofnewyork.us/City-Government/Community-Districts/yfnk-k7r4)
-    
+
     		1. Produced an extract of the data that only included community districts 3 and 11.
     		2. Produced an extract of the data that was only for Manhattan (all community districts starting with 1).
 
