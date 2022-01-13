@@ -1,4 +1,4 @@
-# Technical methodology for Assignment 3:
+# Technical methodology
 
 1. Downloaded data sources:
   	1. [311 reports of heavy flooding](https://data.cityofnewyork.us/Social-Services/Street-flooding-map/euy6-dafe), downloaded from New York City Open Data.
